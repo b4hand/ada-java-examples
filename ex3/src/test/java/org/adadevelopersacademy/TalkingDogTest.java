@@ -80,6 +80,8 @@ public class TalkingDogTest {
     @Test
     public void barkOutputsGreeting() {
         dog.bark();
+        // Note: The '\n' character is the newline character just line
+        // in Ruby. It is added automatically by println().
         assertThat(
             outContent.toString(),
             is("Hello, my name is NAME.\n"));
