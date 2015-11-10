@@ -36,8 +36,8 @@ public class Hello {
     public Hello(String name) {
       // `this` is like `self` in Ruby.
       this.name = name;
-      // Note, some people consider that bad style to use the same
-      // name of the method parameter as a member variable, but others
+      // Note, some people consider it bad style to use the same name
+      // of the method parameter as a member variable, but others
       // (like myself) find it convenient. The people who don't like
       // it will often use some form of Hungarian notation to
       // distinguish between member variables and argument variables.
