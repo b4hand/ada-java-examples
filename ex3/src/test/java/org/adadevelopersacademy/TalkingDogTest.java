@@ -76,6 +76,8 @@ public class TalkingDogTest {
         assertThat(dog.getSound(), is("Hello, my name is NAME."));
     }
 
+    // Note: I could have written a test for bark in DogTest as well,
+    // but I didn't to make the first DogTest simpler.
     @Test
     public void barkOutputsGreeting() {
         dog.bark();
