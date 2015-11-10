@@ -47,7 +47,7 @@ public class HelloWorld {
 
         // Here's the documentation for the System object:
         //
-        // http://docs.oracle.com/javase/7/docs/api/java/lang/System.html#out
+        // http://docs.oracle.com/javase/8/docs/api/java/lang/System.html#out
 
         // Note that `out` is a static member variable on the `System`
         // class. If it were not static, you would need to have an
