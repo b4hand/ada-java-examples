@@ -13,9 +13,9 @@ brew install maven
 ```
 
 This example sets up a full project using Maven. You can take a look
-at the `pom.xml` to see what a fairly basic project setup is going to
-look like. Free free to copy & modify that to get your initial
-projects started.
+at the [`pom.xml`](pom.xml) to see what a fairly basic project setup
+is going to look like. Free free to copy & modify that to get your
+initial projects started.
 
 Note that this directory structure is typical of most Java projects,
 and it follows the Maven conventions. You technically *can* deviate
