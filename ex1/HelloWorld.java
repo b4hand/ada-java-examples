@@ -23,6 +23,15 @@ public class HelloWorld {
      * Note that `void` means this function *does not* return a value.
      */
     public static void main(String[] args) {
+        /* Java has two styles of comments. One uses slash followed by
+         * asterisk and the other uses double slashes.
+         *
+         * The slash asterisk comments continue until an asterisk
+         * followed by slash appears; whereas, the double slash
+         * comments extend to just the end of the line similar to how
+         * Ruby's # comments function.
+         */
+
         // This line says to print out a String, similar to the `puts`
         // method in Ruby:
         System.out.println("Hello, World!");
