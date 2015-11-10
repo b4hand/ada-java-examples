@@ -1,3 +1,4 @@
 *.class
 *~
 .vagrant/
+ex*/target/
