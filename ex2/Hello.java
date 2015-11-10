@@ -66,11 +66,15 @@ public class Hello {
      * command line. It must have the following signature.
      */
     public static void main(String[] args) {
+        // This "name" variable is a local variable which is different
+        // from the member variable also named "name". Static methods
+        // do not have access to instance's member variables.
         String name = "World";
 
-        // Here args are passed on the command line, and is a
+        // Here "args" are passed on the command line, and is a
         // "built-in" primitive array. Java arrays have a built-in
-        // length that tells you their length.
+        // length that tells you their length similar to Ruby's
+        // Array#size method.
         if (args.length >= 1) {
            name = args[0];
         }
