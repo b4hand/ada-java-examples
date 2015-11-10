@@ -29,7 +29,8 @@ public class TalkingDogTest {
     // setName on it.
     private static final String NAME = "NAME";
 
-    // Here's another example of direct initialization.
+    // Here's another example of direct initialization, this time for
+    // a member variable.
     //
     // Note that this is equivalent to creating a constructor and
     // doing the initialiation there. This is just a short hand. It's
@@ -42,8 +43,6 @@ public class TalkingDogTest {
     // this style as well.
     private final TalkingDog dog = new TalkingDog(NAME);
 
-    // This is an example of direct initialization of member variables.
-    //
     // We're going to use a ByteArrayOutputStream to capture the
     // System.out output that Dog#bark sends.
     //
