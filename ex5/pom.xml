@@ -21,6 +21,20 @@
     </dependencies>
   </dependencyManagement>
 
+  <scm>
+    <connection>https://github.com/b4hand/ada-java-examples.git</connection>
+    <developerConnection>https://github.com/b4hand/ada-java-examples.git</developerConnection>
+    <url>https://github.com/b4hand/ada-java-examples</url>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>b4hand</id>
+      <name>Brandon Forehand</name>
+      <email>brandon@moz.com</email>
+    </developer>
+  </developers>
+
   <dependencies>
     <dependency>
       <groupId>org.glassfish</groupId>
