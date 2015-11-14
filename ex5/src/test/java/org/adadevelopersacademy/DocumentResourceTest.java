@@ -4,8 +4,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-import java.io.StringReader;
-
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
@@ -20,9 +18,12 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
 public class DocumentResourceTest {
+
+    private static final String DOCUMENT_PATH = "document/";
+    private static final String KEY = "key";
+    private static final String VALUE = "value";
 
     private HttpServer server;
     private WebTarget target;
@@ -34,7 +35,7 @@ public class DocumentResourceTest {
         // start the server
         server = Main.startServer();
         // create the client
-        Client c = ClientBuilder.newClient();
+        final Client c = ClientBuilder.newClient();
 
         target = c.target(Main.BASE_URI);
     }
@@ -50,7 +51,7 @@ public class DocumentResourceTest {
     @Test
     public void notFoundForUnknownDocuments() {
         final Response response = target
-            .path("document/999")
+            .path(DOCUMENT_PATH + 999)
             .request(MediaType.APPLICATION_JSON)
             .get();
         assertThat(
@@ -65,10 +66,10 @@ public class DocumentResourceTest {
     public void canSet() {
         final JsonObject document = Json
             .createObjectBuilder()
-            .add("key", "value")
+            .add(KEY, VALUE)
             .build();
         final Response response = target
-            .path("document/0")
+            .path(DOCUMENT_PATH + 0)
             .request(MediaType.APPLICATION_JSON)
             .put(Entity.json(document.toString()));
         final JsonObject responseObject =
@@ -83,22 +84,22 @@ public class DocumentResourceTest {
     public void canOverwriteAndGet() {
         final JsonObject oldDocument = Json
             .createObjectBuilder()
-            .add("key", "oldValue")
+            .add(KEY, "oldValue")
             .build();
         final JsonObject newDocument = Json
             .createObjectBuilder()
-            .add("key", "newValue")
+            .add(KEY, "newValue")
             .build();
         target
-            .path("document/0")
+            .path(DOCUMENT_PATH + 0)
             .request(MediaType.APPLICATION_JSON)
             .put(Entity.json(oldDocument.toString()));
         target
-            .path("document/0")
+            .path(DOCUMENT_PATH + 0)
             .request(MediaType.APPLICATION_JSON)
             .put(Entity.json(newDocument.toString()));
         final Response response = target
-            .path("document/0")
+            .path(DOCUMENT_PATH + 0)
             .request(MediaType.APPLICATION_JSON)
             .get();
         final JsonObject responseObject =
@@ -113,7 +114,7 @@ public class DocumentResourceTest {
     public void canCreate() {
         final JsonObject document = Json
             .createObjectBuilder()
-            .add("key", "value")
+            .add(KEY, VALUE)
             .build();
         final Response response = target
             .path("document")
@@ -131,7 +132,7 @@ public class DocumentResourceTest {
     public void canCreateAndGet() {
         final JsonObject expected = Json
             .createObjectBuilder()
-            .add("key", "value")
+            .add(KEY, VALUE)
             .build();
         final Response createResponse = target
             .path("document")
@@ -140,7 +141,7 @@ public class DocumentResourceTest {
         final int docId =
             createResponse.readEntity(JsonObject.class).getInt("docId");
         final Response getResponse = target
-            .path("document/" + Integer.toString(docId))
+            .path(DOCUMENT_PATH + docId)
             .request(MediaType.APPLICATION_JSON)
             .get();
         final JsonObject actual = getResponse.readEntity(JsonObject.class);
@@ -154,10 +155,10 @@ public class DocumentResourceTest {
     public void refusesToCreate() {
         final JsonObject document = Json
             .createObjectBuilder()
-            .add("key", "value")
+            .add(KEY, VALUE)
             .build();
         target
-            .path("document/" + Integer.MAX_VALUE)
+            .path(DOCUMENT_PATH + Integer.MAX_VALUE)
             .request(MediaType.APPLICATION_JSON)
             .put(Entity.json(document.toString()));
         final Response response = target

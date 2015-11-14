@@ -1,6 +1,5 @@
 package org.adadevelopersacademy;
 
-import java.net.URI;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
@@ -8,16 +7,15 @@ import java.util.TreeMap;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Request;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Produces;
+import javax.ws.rs.PUT;
+import javax.ws.rs.WebApplicationException;
 
 /**
  * Root resource (exposed at "document" path). Implements a simple in
@@ -26,7 +24,7 @@ import javax.ws.rs.core.Request;
 @Path("/document")
 public class DocumentResource {
 
-    private static final NavigableMap<Integer, JsonObject> documents =
+    private static final NavigableMap<Integer, JsonObject> DOCUMENTS =
         new TreeMap<>();
 
     /**
@@ -38,7 +36,7 @@ public class DocumentResource {
     @GET @Path("{docId: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject get(@PathParam("docId") final int docId) {
-        final JsonObject document = documents.get(docId);
+        final JsonObject document = DOCUMENTS.get(docId);
         if (document == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
@@ -58,7 +56,7 @@ public class DocumentResource {
     public JsonObject set(
             @PathParam("docId") final int docId,
             final JsonObject document) {
-        documents.put(docId, document);
+        DOCUMENTS.put(docId, document);
         return document;
     }
 
@@ -75,7 +73,7 @@ public class DocumentResource {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject create(final JsonObject document) {
         int docId = 0;
-        Map.Entry<Integer, JsonObject> lastEntry = documents.lastEntry();
+        final Map.Entry<Integer, JsonObject> lastEntry = DOCUMENTS.lastEntry();
         if (lastEntry != null) {
             docId = lastEntry.getKey() + 1;
         }
@@ -83,7 +81,7 @@ public class DocumentResource {
             throw new WebApplicationException(
                 "No available docId", Response.Status.FORBIDDEN);
         }
-        documents.put(docId, document);
+        DOCUMENTS.put(docId, document);
         return Json
             .createObjectBuilder()
             .add("docId", docId)
@@ -91,6 +89,6 @@ public class DocumentResource {
     }
 
     public static void clear() {
-        documents.clear();
+        DOCUMENTS.clear();
     }
 }
