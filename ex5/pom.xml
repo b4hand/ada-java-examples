@@ -59,16 +59,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-                <inherited>true</inherited>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>
@@ -81,6 +71,65 @@
                 </executions>
                 <configuration>
                     <mainClass>org.adadevelopersacademy.Main</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.13</version>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <failOnViolation>true</failOnViolation>
+                            <configLocation>src/test/resources/checkstyle.xml</configLocation>
+                            <logViolationsToConsole>true</logViolationsToConsole>
+                            <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+                <!-- Override checkstyle version to newer 5.8 so that we can
+                     get the allowEmptyTypes feature. -->
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>5.8</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <compilerArgs>
+                        <arg>-Werror</arg>
+                        <arg>-Xlint:cast</arg>
+                        <arg>-Xlint:classfile</arg>
+                        <arg>-Xlint:deprecation</arg>
+                        <arg>-Xlint:divzero</arg>
+                        <arg>-Xlint:fallthrough</arg>
+                        <arg>-Xlint:finally</arg>
+                        <arg>-Xlint:options</arg>
+                        <arg>-Xlint:overrides</arg>
+                        <arg>-Xlint:path</arg>
+                        <arg>-Xlint:processing</arg>
+                        <arg>-Xlint:rawtypes</arg>
+                        <arg>-Xlint:serial</arg>
+                        <arg>-Xlint:static</arg>
+                        <arg>-Xlint:try</arg>
+                        <arg>-Xlint:unchecked</arg>
+                        <arg>-Xlint:varargs</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>
