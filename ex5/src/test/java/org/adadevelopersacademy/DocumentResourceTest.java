@@ -78,6 +78,28 @@ public class DocumentResourceTest {
     }
 
     /**
+     * Can get back the same document after previously setting it.
+     */
+    @Test
+    public void canSetAndGet() {
+        final JsonObject document = Json
+            .createObjectBuilder()
+            .add(KEY, VALUE)
+            .build();
+        target
+            .path(DOCUMENT_PATH + 0)
+            .request(MediaType.APPLICATION_JSON)
+            .put(Entity.json(document.toString()));
+        final Response response = target
+            .path(DOCUMENT_PATH + 0)
+            .request(MediaType.APPLICATION_JSON)
+            .get();
+        final JsonObject responseObject =
+            response.readEntity(JsonObject.class);
+        assertThat(responseObject, equalTo(document));
+    }
+
+    /**
      * Can overwrite a document and get the new document back.
      */
     @Test
